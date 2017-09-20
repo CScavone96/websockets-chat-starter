@@ -54,11 +54,11 @@ const onMsg = (sock) => {
     socket.on('meMsgToServer', (data) => {
         io.sockets.in('room1').emit('meMsg', { name: socket.name, msg: data});
     });
-    socket.on('rollMsgToServer', (data) => {
+    socket.on('rollMsgToServer', () => {
         let num = Math.floor((Math.random()*6)+1);
         io.sockets.in('room1').emit('rollMsg', { name: socket.name, msg: num});
     });
-    socket.on('coinMsgToServer', (data) => {
+    socket.on('coinMsgToServer', () => {
         let num = Math.random();
         let coin = "tails";
         if(num >= 0.5){
@@ -70,7 +70,7 @@ const onMsg = (sock) => {
 
 const onDisconnect = (sock) => {
     const socket = sock;
-    socket.on('disconnect', (data) =>{
+    socket.on('disconnect', () =>{
         const exitMsg = { 
         name: 'server',
         msg: `${socket.name} has left the room`
